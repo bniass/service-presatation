@@ -1,0 +1,27 @@
+{
+  "namespace": "com.ecole221.prestation.kafka.avro.model",
+  "type": "record",
+  "name": "PaiementCreateResponseAvroModel",
+  "fields": [
+    {
+      "name": "clientId",
+      "type": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "demandeId",
+      "type": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "paiementStatut",
+      "type": {
+        "type": "enum",
+        "name": "PaiementStatut",
+        "symbols": ["EN_ATTENTE", "TERMINE", "ANNULE", "ECHEC"]
+      }
+    }
+  ]
+}

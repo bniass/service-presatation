@@ -1,0 +1,27 @@
+{
+  "namespace": "com.ecole221.prestation.kafka.avro.model",
+  "type": "record",
+  "name": "CustomerCreateResponseAvroModel",
+  "fields": [
+    {
+      "name": "clientId",
+      "type": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "message",
+      "type": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "customerStatut",
+      "type": {
+        "type": "enum",
+        "name": "CustomerStatut",
+        "symbols": ["CREATED", "EXIST"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "namespace": "com.ecole221.prestation.kafka.avro.model",
+  "type": "record",
+  "name": "CustomerExistRequestAvroModel",
+  "fields": [
+    {
+      "name": "clientId",
+      "type": {
+        "type": "string"
+      }
+    }
+  ]
+}
