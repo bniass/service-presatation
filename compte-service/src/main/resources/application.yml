@@ -8,7 +8,8 @@ kafka-config:
 kafka-consumer-config:
   key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
   value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
-  consumer-group-id: consumer-topic-consumer
+  customer-group-id: customer-topic
+  paiement-group-id: paiement-topic
   auto-offset-reset: earliest
   specific-avro-reader-key: specific.avro.reader
   specific-avro-reader: true
@@ -42,6 +43,9 @@ topics:
   paiement-create-topic-request-name: paiement-request
   paiement-create-topic-response-name: paiement-response
 
+server:
+  port: 8087
+
 springdoc:
   api-docs:
     path: /api-docs
@@ -51,7 +55,7 @@ spring:
     name: compte-service
   datasource:
     driver-class-name: org.postgresql.Driver
-    url:  jdbc:postgresql://localhost:5432/compte-service
+    url:  jdbc:postgresql://localhost:5432/my-compte-service
     username: postgres
     password: passer
   jpa:
