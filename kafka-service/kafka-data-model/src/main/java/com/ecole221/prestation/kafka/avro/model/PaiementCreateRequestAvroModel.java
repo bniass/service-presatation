@@ -14,10 +14,10 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class PaiementCreateRequestAvroModel extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = -323604847836371549L;
+  private static final long serialVersionUID = 8388434293873422845L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"PaiementCreateRequestAvroModel\",\"namespace\":\"com.ecole221.prestation.kafka.avro.model\",\"fields\":[{\"name\":\"clientId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"demandeId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"montant\",\"type\":{\"type\":\"bytes\",\"logicalType\":\"decimal\",\"precision\":10,\"scale\":2}},{\"name\":\"paiementStatut\",\"type\":{\"type\":\"enum\",\"name\":\"PaiementStatut\",\"symbols\":[\"EN_ATTENTE\",\"TERMINE\",\"ANNULE\",\"ECHEC\"]}}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"PaiementCreateRequestAvroModel\",\"namespace\":\"com.ecole221.prestation.kafka.avro.model\",\"fields\":[{\"name\":\"clientId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"demandeId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"montant\",\"type\":{\"type\":\"bytes\",\"logicalType\":\"decimal\",\"precision\":10,\"scale\":2}},{\"name\":\"message\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"paiementStatut\",\"type\":{\"type\":\"enum\",\"name\":\"PaiementStatut\",\"symbols\":[\"EN_ATTENTE\",\"TERMINE\",\"ANNULE\",\"ECHEC\"]}}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
@@ -79,6 +79,7 @@ public class PaiementCreateRequestAvroModel extends org.apache.avro.specific.Spe
   private java.lang.String clientId;
   private java.lang.String demandeId;
   private java.math.BigDecimal montant;
+  private java.lang.String message;
   private com.ecole221.prestation.kafka.avro.model.PaiementStatut paiementStatut;
 
   /**
@@ -93,12 +94,14 @@ public class PaiementCreateRequestAvroModel extends org.apache.avro.specific.Spe
    * @param clientId The new value for clientId
    * @param demandeId The new value for demandeId
    * @param montant The new value for montant
+   * @param message The new value for message
    * @param paiementStatut The new value for paiementStatut
    */
-  public PaiementCreateRequestAvroModel(java.lang.String clientId, java.lang.String demandeId, java.math.BigDecimal montant, com.ecole221.prestation.kafka.avro.model.PaiementStatut paiementStatut) {
+  public PaiementCreateRequestAvroModel(java.lang.String clientId, java.lang.String demandeId, java.math.BigDecimal montant, java.lang.String message, com.ecole221.prestation.kafka.avro.model.PaiementStatut paiementStatut) {
     this.clientId = clientId;
     this.demandeId = demandeId;
     this.montant = montant;
+    this.message = message;
     this.paiementStatut = paiementStatut;
   }
 
@@ -115,7 +118,8 @@ public class PaiementCreateRequestAvroModel extends org.apache.avro.specific.Spe
     case 0: return clientId;
     case 1: return demandeId;
     case 2: return montant;
-    case 3: return paiementStatut;
+    case 3: return message;
+    case 4: return paiementStatut;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -125,6 +129,7 @@ public class PaiementCreateRequestAvroModel extends org.apache.avro.specific.Spe
       null,
       null,
       new org.apache.avro.Conversions.DecimalConversion(),
+      null,
       null,
       null
   };
@@ -142,7 +147,8 @@ public class PaiementCreateRequestAvroModel extends org.apache.avro.specific.Spe
     case 0: clientId = value$ != null ? value$.toString() : null; break;
     case 1: demandeId = value$ != null ? value$.toString() : null; break;
     case 2: montant = (java.math.BigDecimal)value$; break;
-    case 3: paiementStatut = (com.ecole221.prestation.kafka.avro.model.PaiementStatut)value$; break;
+    case 3: message = value$ != null ? value$.toString() : null; break;
+    case 4: paiementStatut = (com.ecole221.prestation.kafka.avro.model.PaiementStatut)value$; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -196,6 +202,23 @@ public class PaiementCreateRequestAvroModel extends org.apache.avro.specific.Spe
    */
   public void setMontant(java.math.BigDecimal value) {
     this.montant = value;
+  }
+
+  /**
+   * Gets the value of the 'message' field.
+   * @return The value of the 'message' field.
+   */
+  public java.lang.String getMessage() {
+    return message;
+  }
+
+
+  /**
+   * Sets the value of the 'message' field.
+   * @param value the value to set.
+   */
+  public void setMessage(java.lang.String value) {
+    this.message = value;
   }
 
   /**
@@ -259,6 +282,7 @@ public class PaiementCreateRequestAvroModel extends org.apache.avro.specific.Spe
     private java.lang.String clientId;
     private java.lang.String demandeId;
     private java.math.BigDecimal montant;
+    private java.lang.String message;
     private com.ecole221.prestation.kafka.avro.model.PaiementStatut paiementStatut;
 
     /** Creates a new Builder */
@@ -284,9 +308,13 @@ public class PaiementCreateRequestAvroModel extends org.apache.avro.specific.Spe
         this.montant = data().deepCopy(fields()[2].schema(), other.montant);
         fieldSetFlags()[2] = other.fieldSetFlags()[2];
       }
-      if (isValidValue(fields()[3], other.paiementStatut)) {
-        this.paiementStatut = data().deepCopy(fields()[3].schema(), other.paiementStatut);
+      if (isValidValue(fields()[3], other.message)) {
+        this.message = data().deepCopy(fields()[3].schema(), other.message);
         fieldSetFlags()[3] = other.fieldSetFlags()[3];
+      }
+      if (isValidValue(fields()[4], other.paiementStatut)) {
+        this.paiementStatut = data().deepCopy(fields()[4].schema(), other.paiementStatut);
+        fieldSetFlags()[4] = other.fieldSetFlags()[4];
       }
     }
 
@@ -308,9 +336,13 @@ public class PaiementCreateRequestAvroModel extends org.apache.avro.specific.Spe
         this.montant = data().deepCopy(fields()[2].schema(), other.montant);
         fieldSetFlags()[2] = true;
       }
-      if (isValidValue(fields()[3], other.paiementStatut)) {
-        this.paiementStatut = data().deepCopy(fields()[3].schema(), other.paiementStatut);
+      if (isValidValue(fields()[3], other.message)) {
+        this.message = data().deepCopy(fields()[3].schema(), other.message);
         fieldSetFlags()[3] = true;
+      }
+      if (isValidValue(fields()[4], other.paiementStatut)) {
+        this.paiementStatut = data().deepCopy(fields()[4].schema(), other.paiementStatut);
+        fieldSetFlags()[4] = true;
       }
     }
 
@@ -435,6 +467,46 @@ public class PaiementCreateRequestAvroModel extends org.apache.avro.specific.Spe
     }
 
     /**
+      * Gets the value of the 'message' field.
+      * @return The value.
+      */
+    public java.lang.String getMessage() {
+      return message;
+    }
+
+
+    /**
+      * Sets the value of the 'message' field.
+      * @param value The value of 'message'.
+      * @return This builder.
+      */
+    public com.ecole221.prestation.kafka.avro.model.PaiementCreateRequestAvroModel.Builder setMessage(java.lang.String value) {
+      validate(fields()[3], value);
+      this.message = value;
+      fieldSetFlags()[3] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'message' field has been set.
+      * @return True if the 'message' field has been set, false otherwise.
+      */
+    public boolean hasMessage() {
+      return fieldSetFlags()[3];
+    }
+
+
+    /**
+      * Clears the value of the 'message' field.
+      * @return This builder.
+      */
+    public com.ecole221.prestation.kafka.avro.model.PaiementCreateRequestAvroModel.Builder clearMessage() {
+      message = null;
+      fieldSetFlags()[3] = false;
+      return this;
+    }
+
+    /**
       * Gets the value of the 'paiementStatut' field.
       * @return The value.
       */
@@ -449,9 +521,9 @@ public class PaiementCreateRequestAvroModel extends org.apache.avro.specific.Spe
       * @return This builder.
       */
     public com.ecole221.prestation.kafka.avro.model.PaiementCreateRequestAvroModel.Builder setPaiementStatut(com.ecole221.prestation.kafka.avro.model.PaiementStatut value) {
-      validate(fields()[3], value);
+      validate(fields()[4], value);
       this.paiementStatut = value;
-      fieldSetFlags()[3] = true;
+      fieldSetFlags()[4] = true;
       return this;
     }
 
@@ -460,7 +532,7 @@ public class PaiementCreateRequestAvroModel extends org.apache.avro.specific.Spe
       * @return True if the 'paiementStatut' field has been set, false otherwise.
       */
     public boolean hasPaiementStatut() {
-      return fieldSetFlags()[3];
+      return fieldSetFlags()[4];
     }
 
 
@@ -470,7 +542,7 @@ public class PaiementCreateRequestAvroModel extends org.apache.avro.specific.Spe
       */
     public com.ecole221.prestation.kafka.avro.model.PaiementCreateRequestAvroModel.Builder clearPaiementStatut() {
       paiementStatut = null;
-      fieldSetFlags()[3] = false;
+      fieldSetFlags()[4] = false;
       return this;
     }
 
@@ -482,7 +554,8 @@ public class PaiementCreateRequestAvroModel extends org.apache.avro.specific.Spe
         record.clientId = fieldSetFlags()[0] ? this.clientId : (java.lang.String) defaultValue(fields()[0]);
         record.demandeId = fieldSetFlags()[1] ? this.demandeId : (java.lang.String) defaultValue(fields()[1]);
         record.montant = fieldSetFlags()[2] ? this.montant : (java.math.BigDecimal) defaultValue(fields()[2]);
-        record.paiementStatut = fieldSetFlags()[3] ? this.paiementStatut : (com.ecole221.prestation.kafka.avro.model.PaiementStatut) defaultValue(fields()[3]);
+        record.message = fieldSetFlags()[3] ? this.message : (java.lang.String) defaultValue(fields()[3]);
+        record.paiementStatut = fieldSetFlags()[4] ? this.paiementStatut : (com.ecole221.prestation.kafka.avro.model.PaiementStatut) defaultValue(fields()[4]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
         throw e;

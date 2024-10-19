@@ -23,6 +23,6 @@ public class Compte {
     private String numeroCompte;
     private BigDecimal solde;
     private long clientId;
-    @OneToMany(mappedBy = "compte", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "compte", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     private List<Transaction> transactions;
 }

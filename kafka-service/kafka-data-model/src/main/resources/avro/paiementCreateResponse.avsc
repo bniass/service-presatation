@@ -1,7 +1,7 @@
 {
   "namespace": "com.ecole221.prestation.kafka.avro.model",
   "type": "record",
-  "name": "PaiementCreateRequestAvroModel",
+  "name": "PaiementCreateResponseAvroModel",
   "fields": [
     {
       "name": "clientId",
@@ -16,12 +16,9 @@
       }
     },
     {
-      "name": "montant",
+      "name": "message",
       "type": {
-        "type": "bytes",
-        "logicalType": "decimal",
-        "precision": 10,
-        "scale": 2
+        "type": "string"
       }
     },
     {

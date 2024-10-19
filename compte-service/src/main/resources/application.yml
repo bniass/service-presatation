@@ -36,12 +36,12 @@ kafka-producer-config:
   retry-count: 5
 
 topics:
-  compte-create-topic-request-name: compte-request
-  compte-create-topic-response-name: compte-response
-  customer-create-topic-request-name: customer-request
-  customer-create-topic-response-name: customer-response
-  paiement-create-topic-request-name: paiement-request
-  paiement-create-topic-response-name: paiement-response
+  compte-create-topic-request-name: compte-prestation-request
+  compte-create-topic-response-name: compte-prestation-response
+  customer-create-topic-request-name: customer-prestation-request
+  customer-create-topic-response-name: customer-prestation-response
+  paiement-create-topic-request-name: paiement-prestation-request
+  paiement-create-topic-response-name: paiement-prestation-response
 
 server:
   port: 8087
