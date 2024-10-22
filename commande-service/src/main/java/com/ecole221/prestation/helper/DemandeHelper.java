@@ -4,6 +4,7 @@ import com.ecole221.prestation.config.ConfigData;
 import com.ecole221.prestation.config.service.MessageHelper;
 import com.ecole221.prestation.dto.CreateDemandeRequest;
 import com.ecole221.prestation.dto.CreateDemandeResponse;
+import com.ecole221.prestation.dto.DemandeResponse;
 import com.ecole221.prestation.dto.OffreRequest;
 import com.ecole221.prestation.exception.CommandeServiceException;
 import com.ecole221.prestation.exception.CommandeServiceNotFoundException;
@@ -14,6 +15,7 @@ import com.ecole221.prestation.mapper.CommandeMapper;
 import com.ecole221.prestation.messaging.KafkaEvent;
 import com.ecole221.prestation.model.Demande;
 import com.ecole221.prestation.model.Service;
+import com.ecole221.prestation.proxy.CustomerProxy;
 import com.ecole221.prestation.service.IDemande;
 import com.ecole221.prestation.service.IService;
 import org.springframework.stereotype.Component;
@@ -33,16 +35,22 @@ public class DemandeHelper {
     private final IService iService;
     private final MessageHelper<String, PaiementCreateRequestAvroModel> messageHelper;
     private final ConfigData configData;
+    private final CustomerProxy customerProxy;
 
-    public DemandeHelper(IDemande iDemande, CommandeMapper mapper, IService iService, MessageHelper<String, PaiementCreateRequestAvroModel> messageHelper, ConfigData configData) {
+    public DemandeHelper(IDemande iDemande, CommandeMapper mapper, IService iService, MessageHelper<String, PaiementCreateRequestAvroModel> messageHelper, ConfigData configData, CustomerProxy customerProxy) {
         this.iDemande = iDemande;
         this.mapper = mapper;
         this.iService = iService;
         this.messageHelper = messageHelper;
         this.configData = configData;
+        this.customerProxy = customerProxy;
     }
 
     public CreateDemandeResponse createDemande(CreateDemandeRequest createDemandeRequest){
+        //check client
+        if(customerProxy.findCustomer(createDemandeRequest.getClientId()) == null){
+            throw new CommandeServiceNotFoundException("Customer avec id "+createDemandeRequest.getClientId()+" introuvable!");
+        }
         List<Service> services = iService.findAll();
         List<Long> serviceIds = createDemandeRequest.getOffresRequest().stream()
                 .map(OffreRequest::getServiceId).toList();
@@ -113,12 +121,12 @@ public class DemandeHelper {
         return erros;
     }
 
-    public CreateDemandeResponse getDemande(String trackingId){
+    public DemandeResponse getDemande(String trackingId){
         Demande demande = iDemande.findByTrackingId(trackingId);
         if(demande == null){
             throw new CommandeServiceNotFoundException(("Demande avec tracking ID :"+trackingId+" introuvable !"));
         }
-        return mapper.demandeEntityToCreateDemandeResponse(demande);
+        return mapper.demandeEntityToDemandeResponse(demande);
     }
     public boolean removeDemandeWithStatutEchec(){
         try {

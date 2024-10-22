@@ -21,4 +21,9 @@ public class CustomerController {
     public CustomerResponse getCustomer(@PathVariable String tel){
         return customerHelper.getCustomer(tel);
     }
+
+    @GetMapping("/find/{id}")
+    public CustomerResponse getCustomerById(@PathVariable String id){
+        return customerHelper.getCustomerById(id);
+    }
 }

@@ -35,6 +35,7 @@ public class CommandeMapper {
     public Demande createDemandeRequestToDemandeEntity(CreateDemandeRequest createDemandeRequest){
         return Demande.builder()
                 .date(createDemandeRequest.getDate())
+                .clientId(Long.parseLong(createDemandeRequest.getClientId()))
                 .commentaire("")
                 .trackingId(UUID.randomUUID().toString())
                 .statut(PaiementStatut.EN_ATTENTE.name())
@@ -80,4 +81,11 @@ public class CommandeMapper {
                 .build();
     }
 
+    public DemandeResponse demandeEntityToDemandeResponse(Demande demande) {
+        return DemandeResponse.builder()
+                .createDemandeResponse(demandeEntityToCreateDemandeResponse(demande))
+                .commentaire(demande.getCommentaire())
+                .statut(demande.getStatut())
+                .build();
+    }
 }

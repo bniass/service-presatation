@@ -1,0 +1,16 @@
+server:
+  port: 8881
+
+spring:
+  application:
+    name: config-server
+
+  profile:
+    active: native
+
+  cloud:
+    config:
+      server:
+        git:
+          uri:  https://github.com/bniass6666/service-prestation-repo.git
+          clone-on-startup: true

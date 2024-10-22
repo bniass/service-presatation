@@ -24,4 +24,11 @@ public class CustomerHelper {
         }
         return  mapper.modelMapper().map(customer, CustomerResponse.class);
     }
+    public CustomerResponse getCustomerById(String id){
+        Customer customer = iCustomer.find(Long.parseLong(id));
+        if(customer == null){
+            throw new CustomerServiceNotFoundException("Customer avec id "+id+" introuvable!");
+        }
+        return  mapper.modelMapper().map(customer, CustomerResponse.class);
+    }
 }
