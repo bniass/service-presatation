@@ -1,0 +1,49 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/prestation-app-realm
+          jwk-set-uri: http://localhost:8080/realms/prestation-app-realm/protocol/openid-connect/certs
+
+  application:
+    name: api-gateway
+
+  main:
+    allow-bean-definition-overriding: true
+
+server:
+  port: 8765
+
+app:
+  keycloak:
+    admin:
+      username: bniass
+      password: passer
+    issuerUri: http://localhost:8080/realms/prestation-app-realm
+    login:
+      url: http://localhost:8080/realms/prestation-app-realm/protocol/openid-connect/token
+    server:
+      url: http://localhost:8080
+    client-secret: uJmi0X6PHUApH7XFhu7gw4wFT1ajbDyK
+    realm:
+      name: prestation-app-realm
+    client-id: prestation-app
+    grant-type: password
+keycloak:
+  use-resource-role-mappings: 'true'
+  ssl-required: external
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+
+logging:
+  level:
+    org:
+      springframework:
+        security:
+          nodeValue: DEBUG
+          oauth2: DEBUG
