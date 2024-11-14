@@ -10,6 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
+//@CrossOrigin
 @RestController
 @RequestMapping("/api/demandes")
 public class DemandeComtroller {

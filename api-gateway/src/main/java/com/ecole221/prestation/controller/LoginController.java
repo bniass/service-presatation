@@ -9,12 +9,14 @@ import com.ecole221.prestation.service.LoginService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
+@CrossOrigin
 public class LoginController {
 
     @Autowired
@@ -22,11 +24,17 @@ public class LoginController {
 
     @PostMapping("/users/login")
     public ResponseEntity<LoginResponse> login (@RequestBody LoginRequest loginRequest) throws Exception {
-        log.info("Executing login");
+        try{
+            log.info("Executing login");
 
-        ResponseEntity<LoginResponse> response = null;
-        response = loginService.login(loginRequest);
+            ResponseEntity<LoginResponse> response = null;
+            response = loginService.login(loginRequest);
 
-        return response;
+            return response;
+        }
+        catch (Exception ex){
+            throw new Exception(ex.getMessage());
+        }
+
     }
 }

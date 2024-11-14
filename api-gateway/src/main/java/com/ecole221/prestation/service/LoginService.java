@@ -31,7 +31,7 @@ public class LoginService {
     @Autowired
     RestTemplate restTemplate;
 
-    public ResponseEntity<LoginResponse> login (LoginRequest request)  {
+    public ResponseEntity<LoginResponse> login (LoginRequest request) throws Exception {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -44,9 +44,12 @@ public class LoginService {
         map.add("grant_type", grantType);
 
         HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(map, headers);
-        ResponseEntity<LoginResponse> loginResponse = restTemplate.postForEntity(loginUrl, httpEntity, LoginResponse.class);
-
-        return ResponseEntity.status(200).body(loginResponse.getBody());
-
+        try{
+            ResponseEntity<LoginResponse> loginResponse = restTemplate.postForEntity(loginUrl, httpEntity, LoginResponse.class);
+            return ResponseEntity.status(200).body(loginResponse.getBody());
+        }
+        catch (Exception ex){
+            throw new Exception(ex.getMessage());
+        }
     }
 }

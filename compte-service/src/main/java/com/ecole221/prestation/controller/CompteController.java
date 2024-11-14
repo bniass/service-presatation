@@ -10,6 +10,7 @@ import com.ecole221.prestation.messaging.CustomerKafkaListener;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.*;
 
+//@CrossOrigin
 @RestController
 @RequestMapping("/api/compte")
 public class CompteController {

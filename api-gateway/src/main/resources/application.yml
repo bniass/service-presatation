@@ -5,7 +5,19 @@ spring:
         jwt:
           issuer-uri: http://localhost:8080/realms/prestation-app-realm
           jwk-set-uri: http://localhost:8080/realms/prestation-app-realm/protocol/openid-connect/certs
-
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:5173"
+            allowedHeaders:
+              - Content-Type
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
   application:
     name: api-gateway
 

@@ -14,6 +14,7 @@ public class ApiGatewayConfiguration {
         return  builder.routes()
                 .route(p -> p.path("/api/customer/**")
                         .uri("lb://customer-service"))
+
                 .route(p -> p.path("/api/compte/**")
                         .uri("lb://compte-service"))
                 .route(p -> p.path("/api/demandes/**")
