@@ -52,4 +52,24 @@ public class LoginService {
             throw new Exception(ex.getMessage());
         }
     }
+
+    // Méthode pour rafraîchir le token avec un refresh_token
+    public ResponseEntity<LoginResponse> refreshToken(String refreshToken) throws Exception {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("client_id", clientId);
+        map.add("client_secret", clientSecret);
+        map.add("grant_type", "refresh_token"); // Type de demande pour rafraîchir le token
+        map.add("refresh_token", refreshToken);
+
+        HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(map, headers);
+        try {
+            ResponseEntity<LoginResponse> loginResponse = restTemplate.postForEntity(loginUrl, httpEntity, LoginResponse.class);
+            return ResponseEntity.status(200).body(loginResponse.getBody());
+        } catch (Exception ex) {
+            throw new Exception("Failed to refresh token: " + ex.getMessage());
+        }
+    }
 }

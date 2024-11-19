@@ -8,7 +8,10 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.oauth2.client.oidc.web.server.logout.OidcClientInitiatedServerLogoutSuccessHandler;
+import org.springframework.security.oauth2.client.registration.ReactiveClientRegistrationRepository;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.server.authentication.logout.ServerLogoutSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.CorsConfigurationSource;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
@@ -23,6 +26,7 @@ public class WebSecurityConfig {
 
 
     private final JwtReactorAuthConverter jwtReactorAuthConverter;
+    //private final ReactiveClientRegistrationRepository clientRegistrationRepository;
 
     //@Value("${app.keycloak_url_certs}")
     //public final String jwkseturi;
@@ -32,7 +36,7 @@ public class WebSecurityConfig {
     @Bean
     public SecurityWebFilterChain securityFilterChain(ServerHttpSecurity serverHttpSecurity) throws Exception {
         serverHttpSecurity.authorizeExchange(exchange ->
-                exchange.pathMatchers("/users/**")
+                exchange.pathMatchers("/users/**", "/logout")
                         .permitAll()
                         .pathMatchers("/api/customer/**").hasAnyAuthority("user", "admin", "super")
                         .pathMatchers("/api/compte/**").hasAuthority("admin")
@@ -47,7 +51,10 @@ public class WebSecurityConfig {
                    .jwkSetUri("http://localhost:8080/realms/prestation-app-realm/protocol/openid-connect/certs")
               )
         );
-
+    /*.logout(logout -> logout
+              .logoutSuccessHandler(oidcLogoutSuccessHandler()) // Use the custom logout handler
+        );
+*/
 
         serverHttpSecurity.csrf(ServerHttpSecurity.CsrfSpec::disable);
         return serverHttpSecurity.build();
@@ -64,5 +71,18 @@ public class WebSecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
+    /*
+    @Bean
+    public ServerLogoutSuccessHandler oidcLogoutSuccessHandler() {
+        OidcClientInitiatedServerLogoutSuccessHandler logoutSuccessHandler =
+                new OidcClientInitiatedServerLogoutSuccessHandler(clientRegistrationRepository);
+
+        // Configure the default redirection URL after logout
+        logoutSuccessHandler.setPostLogoutRedirectUri("{baseUrl}/login");
+        return logoutSuccessHandler;
+    }
+
+     */
 
 }

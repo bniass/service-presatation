@@ -5,6 +5,7 @@ package com.ecole221.prestation.controller;
 
 import com.ecole221.prestation.model.LoginRequest;
 import com.ecole221.prestation.model.LoginResponse;
+import com.ecole221.prestation.model.TokenRequest;
 import com.ecole221.prestation.service.LoginService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,22 @@ public class LoginController {
 
             ResponseEntity<LoginResponse> response = null;
             response = loginService.login(loginRequest);
+
+            return response;
+        }
+        catch (Exception ex){
+            throw new Exception(ex.getMessage());
+        }
+
+    }
+
+    @PostMapping("/users/refreshtoken")
+    public ResponseEntity<LoginResponse> refresh_token(@RequestBody TokenRequest tokenRequest) throws Exception {
+        try{
+            log.info("Executing refresh token");
+
+            ResponseEntity<LoginResponse> response = null;
+            response = loginService.refreshToken(tokenRequest.getRefresh_token());
 
             return response;
         }

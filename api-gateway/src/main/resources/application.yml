@@ -5,6 +5,17 @@ spring:
         jwt:
           issuer-uri: http://localhost:8080/realms/prestation-app-realm
           jwk-set-uri: http://localhost:8080/realms/prestation-app-realm/protocol/openid-connect/certs
+      client:
+        registration:
+            keycloak:
+              client-id: prestation-app
+              client-secret: uJmi0X6PHUApH7XFhu7gw4wFT1ajbDyK
+              scope: openid
+              authorization-grant-type: authorization_code
+              redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/prestation-app-realm
   cloud:
     gateway:
       globalcors:
@@ -23,6 +34,7 @@ spring:
 
   main:
     allow-bean-definition-overriding: true
+    web-application-type: reactive
 
 server:
   port: 8765
@@ -35,6 +47,8 @@ app:
     issuerUri: http://localhost:8080/realms/prestation-app-realm
     login:
       url: http://localhost:8080/realms/prestation-app-realm/protocol/openid-connect/token
+    #logout:
+      #url: http://localhost:8080/realms/prestation-app-realm/protocol/openid-connect/logout
     server:
       url: http://localhost:8080
     client-secret: uJmi0X6PHUApH7XFhu7gw4wFT1ajbDyK

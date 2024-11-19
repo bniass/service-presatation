@@ -71,6 +71,23 @@ public class CommandeMapper {
                 .build();
     }
 
+    public Service serviceDTOToServiceEntity(ServiceDTO serviceDTO){
+        return Service.builder()
+                .id(serviceDTO.getId())
+                .prix(serviceDTO.getPrix())
+                .description(serviceDTO.getDescription())
+                .libelle(serviceDTO.getLibelle())
+                .build();
+    }
+
+    public Service ServiceCreateRequestToServiceEntity(ServiceCreateRequest serviceCreateRequest){
+        return Service.builder()
+                .prix(serviceCreateRequest.getPrix())
+                .description(serviceCreateRequest.getDescription())
+                .libelle(serviceCreateRequest.getLibelle())
+                .build();
+    }
+
     public PaiementCreateRequestAvroModel createDemandeRequestToPaiementCreateRequestAvroModel(CreateDemandeRequest createDemandeRequest){
         return PaiementCreateRequestAvroModel.newBuilder()
                 .setClientId(createDemandeRequest.getClientId())

@@ -8,4 +8,5 @@ public interface IService {
     Service save(Service service);
     Service find(long id);
     List<Service> findAll();
+    void remove(long id);
 }

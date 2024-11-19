@@ -27,4 +27,9 @@ public class ServiceImpl implements IService{
     public List<Service> findAll() {
         return serviceRepository.findAll();
     }
+
+    @Override
+    public void remove(long id) {
+        serviceRepository.delete(find(id));
+    }
 }

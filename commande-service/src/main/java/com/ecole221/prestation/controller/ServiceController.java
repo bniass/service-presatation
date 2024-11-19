@@ -1,10 +1,12 @@
 package com.ecole221.prestation.controller;
 
+import com.ecole221.prestation.dto.DemandeResponse;
+import com.ecole221.prestation.dto.ServiceCreateRequest;
 import com.ecole221.prestation.dto.ServiceDTO;
 import com.ecole221.prestation.helper.ServiceHelper;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -21,5 +23,26 @@ public class ServiceController {
     @GetMapping("/list")
     public List<ServiceDTO> findAll(){
         return serviceHelper.findAll();
+    }
+
+    @PostMapping
+    public ServiceDTO save(@RequestBody ServiceCreateRequest serviceCreateRequest) {
+        return serviceHelper.save(serviceCreateRequest);
+    }
+
+    @PutMapping
+    public ServiceDTO update(@RequestBody ServiceDTO serviceDTO) {
+        return serviceHelper.update(serviceDTO);
+    }
+
+    @GetMapping("/{id}")
+    public ServiceDTO findService(@PathVariable long id){
+        return serviceHelper.find(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable long id) {
+        serviceHelper.remove(id);
+        return ResponseEntity.ok("service supprimé !");
     }
 }

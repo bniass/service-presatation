@@ -9,7 +9,7 @@ public class GatewayDebugConfig {
     @Bean
     public GlobalFilter logRequestFilter() {
         return (exchange, chain) -> {
-            System.out.println("Headers : " + exchange.getRequest().getHeaders());
+            //System.out.println("Headers : " + exchange.getRequest().getHeaders());
             return chain.filter(exchange);
         };
     }
